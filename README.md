@@ -3,10 +3,9 @@
 This bot aims to answer the question of 'What are we playing tonight?'.
 
 ## Invoking the Bot
-Invoke the bot with `!gamepicker <CMD> <ARGS>`
 
 ### Commands
-* `pick (p)`: Picks a game from the game list at random.
-* `list (ls)`: Displays the channel's game list.
-* `add (a) <GAME NAME>`: Adds a game to the game list.
-* `remove (rm) <LIST POSITION>`: Removes the game at the specified position from the game list.
+* `!gp set steamid <steamid>: Sets Steam ID string for the current user.`
+* `!gp get steamid: Fetches the current user's Steam ID.`
+* `!gp showlist [discordUser]: Shows the GameCollection shared between mentioned users.`
+* `!gp pickrandom [discordUser]: Picks a random game from the GameCollection shared between mentioned users.`
