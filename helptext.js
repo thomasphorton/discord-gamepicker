@@ -1,7 +1,6 @@
 module.exports = `
 Command Reference:
-\`pick\`, \`p\`: Picks a game from the game list at random.
-\`list\`, \`ls\`: Displays the channel's game list.
-\`add\`, \`a\` \`<GAME NAME>\`: Adds a game to the game list.
-\`remove\`, \`rm\` \`<LIST POSITION>\`: Remove the game at the provided position on the game list.
+\`set steamid <STEAM ID>\`: Sets the current user's Steam ID to allow the bot to look at your game collection.
+\`showList [@discordUser]\`: Shows the GameCollection shared between mentioned users.
+\`pick [@discordUser]\`: Picks a random game from the GameCollection shared between mentioned users.
 `;

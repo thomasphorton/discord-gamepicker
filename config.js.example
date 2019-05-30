@@ -4,6 +4,7 @@ module.exports = {
     region: 'us-west-2'
   },
   auth: {
-    token: '<DISCORD BOT TOKEN>'
+    token: '<DISCORD BOT TOKEN>',
+    steam_token: '<STEAM API TOKEN>'
   }
 }
