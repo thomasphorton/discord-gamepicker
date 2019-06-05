@@ -1,0 +1,14 @@
+# Not a real CFN yet! Just a scratchpad.
+
+Resources:
+  GamePickerTable:
+    Type: AWS::DynamoDB::Table
+  GamePickerBotInstance:
+    Type: AWS::EC2::Instance
+  GamePickerBotRole:
+    Type: AWS::IAM::Role
+    Policies:
+      - !Sub `${GamePickerBotPolicy}`
+  GamePickerBotPolicy:
+    Policies:
+      Access to GamePickerTable
