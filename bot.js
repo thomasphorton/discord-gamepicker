@@ -51,7 +51,16 @@ let handlers = {
   set: async function (msg, args) {
     if (args[0].toLowerCase() === 'steamid') {
       let discordUserId = msg.author.id;
+
+      // If entire URL is given, parse out the ID.
+      // https://steamcommunity.com/id/<profile-id>/
+      // https://steamcommunity.com/profiles/<steam-id>/
       let steamId = args[1];
+
+      if (steamId.startsWith('https://steamcommunity.com')) {
+        console.log(steamId.split('/')[4])
+        steamId = steamId.split('/')[4];
+      }
 
       try {
         let res = await gamepicker.updateSteamId(discordUserId, steamId);
