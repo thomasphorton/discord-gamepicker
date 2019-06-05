@@ -1,6 +1,7 @@
 const config = require('./config');
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient({region: config.aws.region});
+const cloudWatch = new AWS.CloudWatch({region: config.aws.region});
 
 const SteamAPI = require('steamapi');
 const steam = new SteamAPI(config.auth.steam_token);
@@ -19,7 +20,17 @@ module.exports = {
       };
 
       docClient.update(params, (err, data) => {
-        if (err) reject(err);
+        if (err) {
+          cloudWatch.putMetricData({
+            MetricName: 'GamePicker',
+            Dimensions: [{
+              Name: 'updateSteamIdError',
+              Value: 1
+            }]
+          }, (e, d) => {
+            reject(err);
+          })
+        }
         else {
           resolve(steamId)
         }
@@ -62,7 +73,6 @@ module.exports = {
         })
 
         let ownedGameLists = await Promise.all(getOwnedGameLists)
-
         let combinedGameList = {};
 
         // Iterate through individual lists to form a combined list.

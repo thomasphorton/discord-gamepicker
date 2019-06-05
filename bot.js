@@ -70,7 +70,7 @@ let handlers = {
 
       try {
         let steamId = await gamepicker.getSteamId(discordUserId);
-        msg.reply(`I've got your Steam ID recorded as '${steamId}'. You can update it with '${botInvocation} set steamid <YOUR ID>'.`);
+        msg.reply(`I've got your Steam ID recorded as '${steamId}'. You can update it with \`${botInvocation} set steamid <YOUR ID>\`.`);
       }
       catch(err) {
         console.log(err);
@@ -81,29 +81,26 @@ let handlers = {
 
   showList: async function(msg, args) {
     let users = msg.mentions.users;
-    // console.log(msg);
-    // if (msg.mentions.everyone) {
-    //   users = msg.guild.members.filter(member => {
-    //     console.log(member);
-    //     return member.presence.status === 'online';
-    //   });
-    //   // console.log(users)
-    // }
+
     if (users.size === 0) {
       msg.channel.send(`No users have been selected. Mention them with \`${botInvocation} showlist @Player1 @Player2\``);
     }
     else {
       let discordUserIds = msg.mentions.users.map(user => user.id);
-      let gameList = await gamepicker.createList(discordUserIds);
 
-      console.log(gameList.length);
-      gameList.forEach(item => {
-        console.log(`${item.game.name} | ${item.ownedBy.length}`)
-      })
+      try {
+        let gameList = await gamepicker.createList(discordUserIds);
 
-      gameList = gameList.slice(0, 10);
+        // Display only the first 10 games.
+        gameList = gameList.slice(0, 10);
 
-      msg.channel.send(renderGameList(gameList, users.size));
+        msg.channel.send(renderGameList(gameList, users.size));
+      }
+      catch(err) {
+        console.log(err);
+        msg.channel.send(`There was an error creating a gamelist for the provided users.`);
+      }
+
     }
   },
 
